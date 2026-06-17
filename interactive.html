@@ -1,289 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Analytics – Interactive Session</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-  header{background:linear-gradient(135deg,#1e40af,#7c3aed);padding:2rem;text-align:center}
-  header h1{font-size:2rem;font-weight:700;letter-spacing:1px}
-  header p{margin-top:.5rem;opacity:.85;font-size:.95rem}
-  nav{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;padding:1rem;background:#1e293b;border-bottom:2px solid #334155}
-  nav button{padding:.5rem 1.1rem;border:none;border-radius:20px;cursor:pointer;font-size:.85rem;font-weight:600;background:#334155;color:#94a3b8;transition:all .2s}
-  nav button.active,nav button:hover{background:#3b82f6;color:#fff}
-  section{display:none;padding:1.5rem;max-width:860px;margin:0 auto}
-  section.active{display:block;animation:fadeIn .4s ease}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-  h2{font-size:1.4rem;margin-bottom:1rem;color:#93c5fd}
-  p{line-height:1.7;margin-bottom:.8rem;color:#cbd5e1}
-  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1rem}
-  .card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:1.2rem;text-align:center;transition:transform .2s,border-color .2s;cursor:default}
-  .card:hover{transform:translateY(-4px);border-color:#3b82f6}
-  .card .icon{font-size:2rem;margin-bottom:.6rem}
-  .card h3{font-size:.95rem;font-weight:600;color:#e2e8f0}
-  .card p{font-size:.8rem;margin-top:.3rem;color:#94a3b8}
-  /* Pipeline */
-  .pipeline{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:1.2rem 0}
-  .step{background:#1e40af;border-radius:8px;padding:.6rem 1rem;font-size:.82rem;font-weight:600;color:#bfdbfe;position:relative}
-  .arrow{color:#60a5fa;font-size:1.2rem;font-weight:700}
-  /* Bar chart */
-  .chart{margin:1.5rem 0}
-  .bar-wrap{display:flex;align-items:center;gap:.7rem;margin:.5rem 0}
-  .bar-label{width:110px;font-size:.8rem;color:#94a3b8;text-align:right;flex-shrink:0}
-  .bar-track{flex:1;background:#1e293b;border-radius:6px;height:22px;overflow:hidden}
-  .bar-fill{height:100%;border-radius:6px;width:0;transition:width 1s ease;display:flex;align-items:center;padding-left:.5rem;font-size:.75rem;font-weight:600;color:#fff}
-  /* Quiz */
-  .quiz-q{background:#1e293b;border-radius:12px;padding:1.2rem;margin-bottom:1.2rem;border:1px solid #334155}
-  .quiz-q p{font-weight:600;margin-bottom:.8rem;color:#e2e8f0}
-  .opt{display:block;width:100%;text-align:left;background:#0f172a;border:1px solid #334155;color:#94a3b8;padding:.55rem 1rem;border-radius:8px;margin:.3rem 0;cursor:pointer;font-size:.85rem;transition:all .2s}
-  .opt:hover{border-color:#3b82f6;color:#bfdbfe}
-  .opt.correct{background:#14532d;border-color:#22c55e;color:#86efac}
-  .opt.wrong{background:#450a0a;border-color:#ef4444;color:#fca5a5}
-  .feedback{margin-top:.5rem;font-size:.82rem;min-height:1rem}
-  #score-box{text-align:center;background:#1e293b;border-radius:12px;padding:1.5rem;margin-top:1rem;display:none}
-  #score-box h3{font-size:1.3rem;color:#93c5fd}
-  #score-box p{color:#94a3b8;margin-top:.4rem}
-  /* Glossary */
-  .term{background:#1e293b;border-radius:10px;padding:.9rem 1.1rem;margin:.5rem 0;cursor:pointer;border:1px solid #334155;display:flex;justify-content:space-between;align-items:center}
-  .term:hover{border-color:#7c3aed}
-  .term-title{font-weight:600;color:#c4b5fd}
-  .term-def{font-size:.82rem;color:#94a3b8;margin-top:.4rem;display:none;line-height:1.5}
-  .chevron{transition:transform .2s;color:#7c3aed}
-  footer{text-align:center;padding:1.2rem;color:#475569;font-size:.78rem;background:#0f172a;border-top:1px solid #1e293b;margin-top:2rem}
-</style>
+    <title>Simple Data Analytics Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        input {
+            width: 80%;
+            padding: 8px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005fa3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <h1>📊 Data Analytics</h1>
-  <p>Interactive Learning Session — Explore, Analyse, Understand</p>
-</header>
+<div class="container">
+    <h2>📊 Simple Data Analytics</h2>
+    <p>Enter numbers separated by commas:</p>
 
-<nav>
-  <button class="active" onclick="show('intro',this)">🏠 Overview</button>
-  <button onclick="show('types',this)">🔍 Types</button>
-  <button onclick="show('process',this)">⚙️ Process</button>
-  <button onclick="show('tools',this)">🛠️ Tools</button>
-  <button onclick="show('viz',this)">📈 Visualise</button>
-  <button onclick="show('quiz',this)">🎯 Quiz</button>
-  <button onclick="show('glossary',this)">📚 Glossary</button>
-</nav>
+    <input type="text" id="dataInput" placeholder="10, 20, 30, 40, 50">
 
-<!-- OVERVIEW -->
-<section id="intro" class="active">
-  <h2>What is Data Analytics?</h2>
-  <p>Data Analytics is the science of examining raw data to draw conclusions and support decision-making. It combines statistics, programming, and domain expertise to uncover patterns, trends, and insights hidden in data.</p>
-  <p>From predicting customer behaviour to optimising supply chains, data analytics powers decisions across every industry.</p>
-  <div class="card-grid">
-    <div class="card"><div class="icon">🎯</div><h3>Goal</h3><p>Turn raw data into actionable insights</p></div>
-    <div class="card"><div class="icon">📐</div><h3>Core Skill</h3><p>Statistical thinking + domain knowledge</p></div>
-    <div class="card"><div class="icon">💡</div><h3>Output</h3><p>Reports, dashboards, predictions</p></div>
-    <div class="card"><div class="icon">🌐</div><h3>Used In</h3><p>Healthcare, finance, retail, tech & more</p></div>
-  </div>
-</section>
+    <br>
+    <button onclick="analyzeData()">Analyze</button>
 
-<!-- TYPES -->
-<section id="types">
-  <h2>4 Types of Data Analytics</h2>
-  <div class="card-grid">
-    <div class="card"><div class="icon">🔭</div><h3>Descriptive</h3><p>What happened? Summarises historical data — reports, dashboards, averages.</p></div>
-    <div class="card"><div class="icon">🔬</div><h3>Diagnostic</h3><p>Why did it happen? Drill-downs, correlations, root-cause analysis.</p></div>
-    <div class="card"><div class="icon">🔮</div><h3>Predictive</h3><p>What will happen? ML models, forecasting, regression.</p></div>
-    <div class="card"><div class="icon">🚀</div><h3>Prescriptive</h3><p>What should we do? Optimisation, simulations, recommendation engines.</p></div>
-  </div>
-  <p style="margin-top:1.2rem;font-size:.85rem;color:#64748b">Each type builds on the previous — mastering all four gives a full analytics capability.</p>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <h2>The Analytics Process</h2>
-  <p>A structured workflow ensures reliable, reproducible insights.</p>
-  <div class="pipeline">
-    <div class="step">1. Define Question</div>
-    <div class="arrow">→</div>
-    <div class="step">2. Collect Data</div>
-    <div class="arrow">→</div>
-    <div class="step">3. Clean Data</div>
-    <div class="arrow">→</div>
-    <div class="step">4. Explore (EDA)</div>
-    <div class="arrow">→</div>
-    <div class="step">5. Model / Analyse</div>
-    <div class="arrow">→</div>
-    <div class="step">6. Visualise</div>
-    <div class="arrow">→</div>
-    <div class="step">7. Communicate</div>
-  </div>
-  <div class="card-grid" style="margin-top:1rem">
-    <div class="card"><div class="icon">❓</div><h3>Define</h3><p>Set clear business objectives and success metrics</p></div>
-    <div class="card"><div class="icon">🗄️</div><h3>Collect</h3><p>Gather data from databases, APIs, surveys, logs</p></div>
-    <div class="card"><div class="icon">🧹</div><h3>Clean</h3><p>Handle nulls, duplicates, outliers, formatting issues</p></div>
-    <div class="card"><div class="icon">📊</div><h3>Visualise</h3><p>Charts, graphs, and dashboards to tell the story</p></div>
-  </div>
-</section>
-
-<!-- TOOLS -->
-<section id="tools">
-  <h2>Popular Analytics Tools</h2>
-  <p>Click a card to learn more about each tool.</p>
-  <div class="card-grid" id="tool-grid">
-    <div class="card" onclick="toggleInfo(this,'Python: Libraries like Pandas, NumPy, Matplotlib, Scikit-learn make it the #1 language for analytics and ML.')"><div class="icon">🐍</div><h3>Python</h3><p>General-purpose analytics & ML</p><p class="tinfo" style="display:none;font-size:.75rem;color:#60a5fa;margin-top:.5rem"></p></div>
-    <div class="card" onclick="toggleInfo(this,'SQL: The foundation for querying relational databases. Every analyst must know SELECT, JOIN, GROUP BY, and window functions.')"><div class="icon">🗃️</div><h3>SQL</h3><p>Query & manage relational data</p><p class="tinfo" style="display:none;font-size:.75rem;color:#60a5fa;margin-top:.5rem"></p></div>
-    <div class="card" onclick="toggleInfo(this,'Power BI: Microsoft\'s BI platform. Drag-and-drop dashboards, DAX formulas, and deep Excel integration.')"><div class="icon">📊</div><h3>Power BI</h3><p>Business intelligence dashboards</p><p class="tinfo" style="display:none;font-size:.75rem;color:#60a5fa;margin-top:.5rem"></p></div>
-    <div class="card" onclick="toggleInfo(this,'Tableau: Industry-leading visualisation tool. Known for beautiful, interactive charts with minimal code.')"><div class="icon">📉</div><h3>Tableau</h3><p>Interactive visualisations</p><p class="tinfo" style="display:none;font-size:.75rem;color:#60a5fa;margin-top:.5rem"></p></div>
-    <div class="card" onclick="toggleInfo(this,'Excel: Still widely used for quick analysis, pivot tables, VLOOKUP, and reporting in many organisations.')"><div class="icon">📋</div><h3>Excel</h3><p>Spreadsheet & pivot analysis</p><p class="tinfo" style="display:none;font-size:.75rem;color:#60a5fa;margin-top:.5rem"></p></div>
-    <div class="card" onclick="toggleInfo(this,'R: Statistical computing language. Preferred in academia and research for advanced stats and rich visualisation (ggplot2).')"><div class="icon">📐</div><h3>R</h3><p>Statistical analysis & research</p><p class="tinfo" style="display:none;font-size:.75rem;color:#60a5fa;margin-top:.5rem"></p></div>
-  </div>
-</section>
-
-<!-- VISUALISE -->
-<section id="viz">
-  <h2>Data at a Glance</h2>
-  <p>Industry adoption of analytics tools (simulated survey data). Click the button to animate.</p>
-  <div class="chart" id="chart">
-    <div class="bar-wrap"><span class="bar-label">Python</span><div class="bar-track"><div class="bar-fill" style="background:#3b82f6" data-w="82">82%</div></div></div>
-    <div class="bar-wrap"><span class="bar-label">SQL</span><div class="bar-track"><div class="bar-fill" style="background:#8b5cf6" data-w="79">79%</div></div></div>
-    <div class="bar-wrap"><span class="bar-label">Excel</span><div class="bar-track"><div class="bar-fill" style="background:#ec4899" data-w="74">74%</div></div></div>
-    <div class="bar-wrap"><span class="bar-label">Power BI</span><div class="bar-track"><div class="bar-fill" style="background:#f59e0b" data-w="55">55%</div></div></div>
-    <div class="bar-wrap"><span class="bar-label">Tableau</span><div class="bar-track"><div class="bar-fill" style="background:#10b981" data-w="48">48%</div></div></div>
-    <div class="bar-wrap"><span class="bar-label">R</span><div class="bar-track"><div class="bar-fill" style="background:#06b6d4" data-w="35">35%</div></div></div>
-  </div>
-  <button onclick="animateBars()" style="background:#3b82f6;color:#fff;border:none;padding:.6rem 1.4rem;border-radius:20px;cursor:pointer;font-weight:600">▶ Animate Chart</button>
-</section>
-
-<!-- QUIZ -->
-<section id="quiz">
-  <h2>Quick Knowledge Check</h2>
-  <div id="q1" class="quiz-q">
-    <p>1. Which type of analytics answers "What will happen?"</p>
-    <button class="opt" onclick="check(this,'q1',false)">Descriptive</button>
-    <button class="opt" onclick="check(this,'q1',false)">Diagnostic</button>
-    <button class="opt" onclick="check(this,'q1',true)">Predictive</button>
-    <button class="opt" onclick="check(this,'q1',false)">Prescriptive</button>
-    <div class="feedback" id="f1"></div>
-  </div>
-  <div id="q2" class="quiz-q">
-    <p>2. What does EDA stand for?</p>
-    <button class="opt" onclick="check(this,'q2',false)">Extended Data Analysis</button>
-    <button class="opt" onclick="check(this,'q2',true)">Exploratory Data Analysis</button>
-    <button class="opt" onclick="check(this,'q2',false)">Extracted Data Aggregation</button>
-    <button class="opt" onclick="check(this,'q2',false)">Encoded Data Attribute</button>
-    <div class="feedback" id="f2"></div>
-  </div>
-  <div id="q3" class="quiz-q">
-    <p>3. Which step comes BEFORE modelling in the analytics process?</p>
-    <button class="opt" onclick="check(this,'q3',false)">Communicate</button>
-    <button class="opt" onclick="check(this,'q3',false)">Visualise</button>
-    <button class="opt" onclick="check(this,'q3',true)">Clean Data</button>
-    <button class="opt" onclick="check(this,'q3',false)">Define Question</button>
-    <div class="feedback" id="f3"></div>
-  </div>
-  <div id="q4" class="quiz-q">
-    <p>4. Which tool is BEST known for interactive drag-and-drop visualisations?</p>
-    <button class="opt" onclick="check(this,'q4',false)">Python</button>
-    <button class="opt" onclick="check(this,'q4',false)">SQL</button>
-    <button class="opt" onclick="check(this,'q4',true)">Tableau</button>
-    <button class="opt" onclick="check(this,'q4',false)">R</button>
-    <div class="feedback" id="f4"></div>
-  </div>
-  <div id="score-box">
-    <h3 id="score-txt"></h3>
-    <p id="score-msg"></p>
-    <button onclick="resetQuiz()" style="margin-top:.8rem;background:#7c3aed;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:20px;cursor:pointer;font-weight:600">🔄 Retry</button>
-  </div>
-</section>
-
-<!-- GLOSSARY -->
-<section id="glossary">
-  <h2>Key Terms</h2>
-  <div class="term" onclick="toggle(this)"><span class="term-title">Dataset</span><span class="chevron">▾</span><div class="term-def">A structured collection of related data, typically organised in rows (records) and columns (variables). The starting point of any analysis.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">KPI (Key Performance Indicator)</span><span class="chevron">▾</span><div class="term-def">A measurable value that shows how effectively an organisation is achieving key business objectives. E.g. monthly revenue, churn rate.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">ETL (Extract, Transform, Load)</span><span class="chevron">▾</span><div class="term-def">A data integration process: Extract data from sources, Transform it to fit operational needs, and Load it into a target data warehouse.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">Correlation</span><span class="chevron">▾</span><div class="term-def">A statistical measure that describes the degree to which two variables move together. Ranges from -1 (inverse) to +1 (direct). Correlation ≠ causation.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">Regression</span><span class="chevron">▾</span><div class="term-def">A statistical method to model the relationship between a dependent variable and one or more independent variables. Used for prediction and forecasting.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">Data Wrangling</span><span class="chevron">▾</span><div class="term-def">The process of cleaning, structuring, and enriching raw data into a desired format for better decision making. Also called data munging.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">Dashboard</span><span class="chevron">▾</span><div class="term-def">A visual display of the most important metrics and KPIs, consolidated onto a single screen for quick situational awareness.</div></div>
-  <div class="term" onclick="toggle(this)"><span class="term-title">Outlier</span><span class="chevron">▾</span><div class="term-def">A data point that differs significantly from other observations. Can indicate an error or a genuinely unusual event worth investigating.</div></div>
-</section>
-
-<footer>📊 Data Analytics Interactive Session &nbsp;|&nbsp; Built for Learning &nbsp;|&nbsp; Jyothi © 2026</footer>
+    <div id="result"></div>
+</div>
 
 <script>
-  // Nav tabs
-  function show(id, btn) {
-    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-    if (id === 'viz') setTimeout(animateBars, 300);
-  }
+function analyzeData() {
+    let input = document.getElementById("dataInput").value;
 
-  // Tool info toggle
-  function toggleInfo(card, txt) {
-    const info = card.querySelector('.tinfo');
-    if (info.style.display === 'none') { info.textContent = txt; info.style.display = 'block'; }
-    else info.style.display = 'none';
-  }
+    let numbers = input.split(",")
+                       .map(num => Number(num.trim()))
+                       .filter(num => !isNaN(num));
 
-  // Bar chart animation
-  function animateBars() {
-    document.querySelectorAll('.bar-fill').forEach(b => {
-      b.style.width = '0';
-      setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 100);
-    });
-  }
-
-  // Quiz logic
-  let score = 0, answered = 0;
-  const total = 4;
-  function check(btn, qid, correct) {
-    const q = document.getElementById(qid);
-    if (q.dataset.done) return;
-    q.dataset.done = '1';
-    const fb = document.getElementById('f' + qid.replace('q',''));
-    q.querySelectorAll('.opt').forEach(o => o.disabled = true);
-    if (correct) {
-      btn.classList.add('correct');
-      fb.textContent = '✅ Correct!'; fb.style.color = '#86efac';
-      score++;
-    } else {
-      btn.classList.add('wrong');
-      fb.textContent = '❌ Not quite — try the retry button after finishing!'; fb.style.color = '#fca5a5';
-      q.querySelectorAll('.opt').forEach(o => { if (o !== btn) o.style.opacity = '.4'; });
+    if (numbers.length === 0) {
+        document.getElementById("result").innerHTML =
+            "<p style='color:red;'>Please enter valid numbers.</p>";
+        return;
     }
-    answered++;
-    if (answered === total) showScore();
-  }
-  function showScore() {
-    const box = document.getElementById('score-box');
-    box.style.display = 'block';
-    document.getElementById('score-txt').textContent = `You scored ${score} / ${total}`;
-    const msgs = ['Keep studying — you\'ll get there! 💪','Good effort — review the sections above 📖','Great work — nearly there! 🌟','Perfect score! You\'re an analytics pro! 🏆'];
-    document.getElementById('score-msg').textContent = msgs[score];
-  }
-  function resetQuiz() {
-    score = 0; answered = 0;
-    document.querySelectorAll('.quiz-q').forEach(q => {
-      delete q.dataset.done;
-      q.querySelectorAll('.opt').forEach(o => { o.disabled = false; o.className = 'opt'; o.style.opacity = '1'; });
-      q.nextElementSibling;
-    });
-    document.querySelectorAll('.feedback').forEach(f => f.textContent = '');
-    document.getElementById('score-box').style.display = 'none';
-  }
 
-  // Glossary toggle
-  function toggle(el) {
-    const def = el.querySelector('.term-def');
-    const ch = el.querySelector('.chevron');
-    const open = def.style.display === 'block';
-    def.style.display = open ? 'none' : 'block';
-    ch.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
-  }
+    let sum = numbers.reduce((a, b) => a + b, 0);
+    let average = (sum / numbers.length).toFixed(2);
+    let max = Math.max(...numbers);
+    let min = Math.min(...numbers);
 
-  // Init bar widths to 0
-  document.querySelectorAll('.bar-fill').forEach(b => b.style.width = '0');
+    document.getElementById("result").innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Total Values:</strong> ${numbers.length}</p>
+        <p><strong>Average:</strong> ${average}</p>
+        <p><strong>Highest:</strong> ${max}</p>
+        <p><strong>Lowest:</strong> ${min}</p>
+    `;
+}
 </script>
+
 </body>
 </html>
